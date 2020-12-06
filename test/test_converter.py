@@ -1,5 +1,6 @@
 import os
 import unittest
+import json
 import tempfile
 import filecmp
 from   src.converter import Converter
@@ -25,8 +26,15 @@ def make_test(fname):
             c = Converter()
             c.convert(inputs, got)
 
-            rslt = filecmp.cmp(expected, got)
-            self.assertTrue(rslt, 'Different outputs!')
+            with open(expected, 'r') as exf:
+                exj  = json.load(exf)
+            with open(got, 'r') as gotf:
+                gotj = json.load(gotf)
+
+            self.assertEquals(exj['user_list_size'], gotj['user_list_size'])
+            self.assertListEqual(exj['user_list'], gotj['user_list'])
+            self.assertDictEqual(exj, gotj)
+
         finally:
             os.close(fhandle)
             os.remove(got)
