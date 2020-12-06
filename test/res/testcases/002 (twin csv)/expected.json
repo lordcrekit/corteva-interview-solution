@@ -1,0 +1,23 @@
+{
+    "user_list_size": 3,
+    "user_list": [
+        {
+            "list_id": 1,
+            "first name": "John",
+            "last name": "Doe",
+            "email": "alexander@gmail.com"
+        },
+        {
+            "list_id": 2,
+            "first name": "Kyle",
+            "last name": "Lacovic",
+            "email": "foobar@yahoo.com"
+        },
+        {
+            "list_id": 3,
+            "first name": "william",
+            "last name": "smith",
+            "email": "foo@macalu.so"
+        }
+    ]
+}

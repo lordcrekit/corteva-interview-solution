@@ -2,7 +2,7 @@ import csv
 import collections
 import json
 
-class converter():
+class Converter():
     '''
     '''
 
@@ -11,11 +11,9 @@ class converter():
         self._missed   = []
         self._userlist = []
 
-    def convert(self, csvpaths, destpath, errpath):
+    def convert(self, csvpaths, destpath):
         '''
         Convert all provided csvpaths into the proper json at the destpath.
-
-        Any rows that cannot be converted (do not adhere to expected format) are sent to errpath (unless None).
         '''
         for csvpath in csvpaths:
             with open(csvpath, 'r') as csvfile:
@@ -27,7 +25,7 @@ class converter():
                     else:
                         self._consume(csvpath, row)
 
-        self._resolve(destpath, None)
+        self._resolve(destpath)
 
     def _consume(self, csvpath, row):
         '''Consume a single row of a csv file'''
@@ -55,7 +53,7 @@ class converter():
         '''Call when a row cannot be resolved'''
         print('%s : %s' % (reason, row))
 
-    def _resolve(self, destpath, errpath):
+    def _resolve(self, destpath):
         '''Resolve all converted rows, write output'''
 
         assert self._counter -1 == len(self._userlist)
