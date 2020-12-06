@@ -8,7 +8,6 @@ class Converter():
 
     def __init__(self):
         self._counter  = 1;
-        self._missed   = []
         self._userlist = []
 
     def convert(self, csvpaths, destpath):
@@ -23,21 +22,21 @@ class Converter():
                     if category is None:
                         category = row
                     else:
-                        self._consume(csvpath, row)
+                        self._consume(category, row)
 
         self._resolve(destpath)
 
-    def _consume(self, csvpath, row):
+    def _consume(self, cats, row):
         '''Consume a single row of a csv file'''
         if not len(row) == 2:
-            self._missed(csvpath, row)
+            self._miss(cats, row, 'wrong number of rows')
             return
 
         name = row[0].split(' ')
         email = row[1]
 
         if not len(name) == 2:
-            self._miss(csvpath, row, 'namecount missed')
+            self._miss(cats, row, 'namecount missed')
             return
 
         first, last = name
@@ -49,9 +48,13 @@ class Converter():
         })
         self._counter += 1
 
-    def _miss(self, csvpath, row, reason):
-        '''Call when a row cannot be resolved'''
-        print('%s : %s' % (reason, row))
+    def _miss(self, cats, row, reason):
+        '''
+        Call when a row cannot be resolved.
+
+        Nothing is done with this for now, but this should be sent to a failure / backup.
+        '''
+        print('%s : %s : %s' % (reason, cats, row))
 
     def _resolve(self, destpath):
         '''Resolve all converted rows, write output'''
