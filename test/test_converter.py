@@ -19,6 +19,7 @@ def make_test(fname):
             fullpath  = os.path.join(os.path.split(__file__)[0], 'res', 'testcases', fname)
             inputs    = os.listdir(os.path.join(fullpath, 'input'))
             inputs    = map(lambda x: os.path.join(fullpath, 'input', x), inputs)
+            inputs    = sorted(inputs)
 
             expected     = os.path.join(fullpath, 'expected.json')
             fhandle, got = tempfile.mkstemp()
@@ -31,7 +32,7 @@ def make_test(fname):
             with open(got, 'r') as gotf:
                 gotj = json.load(gotf)
 
-            self.assertEquals(exj['user_list_size'], gotj['user_list_size'])
+            self.assertEqual(exj['user_list_size'], gotj['user_list_size'])
             self.assertListEqual(exj['user_list'], gotj['user_list'])
             self.assertDictEqual(exj, gotj)
 
