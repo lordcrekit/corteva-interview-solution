@@ -2,12 +2,14 @@ import csv
 import collections
 import json
 
+
 class Converter():
     '''
+    Converts csv files into a single formatted json file.
     '''
 
     def __init__(self):
-        self._counter  = 1;
+        self._counter = 1
         self._userlist = []
 
     def convert(self, csvpaths, destpath):
@@ -59,7 +61,7 @@ class Converter():
     def _resolve(self, destpath):
         '''Resolve all converted rows, write output'''
 
-        assert self._counter -1 == len(self._userlist)
+        assert self._counter - 1 == len(self._userlist)
 
         data = {
             'user_list_size': len(self._userlist),
