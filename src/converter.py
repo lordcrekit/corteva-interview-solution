@@ -67,4 +67,4 @@ class Converter():
         }
 
         with open(destpath, 'w') as destfile:
-            json.dump(data, destfile, indent=4)
+            json.dump(data, destfile, indent=4, sort_keys=True)
